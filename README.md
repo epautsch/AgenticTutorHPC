@@ -27,8 +27,8 @@ This repo implements the system described in the accompanying paper, centered on
 ### 1) Environment
 ```bash
 # clone
-git clone https://github.com/<you>/agentic-hpc-tutor.git
-cd agentic-hpc-tutor
+git clone https://github.com/epautsch/AgenticTutorHPC.git
+cd AgenticTutorHPC
 
 # python env (any of venv/conda/uv is fine)
 python -m venv .venv && source .venv/bin/activate

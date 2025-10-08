@@ -4,7 +4,7 @@ from transformers import Gemma3ForConditionalGeneration, AutoProcessor, AutoToke
 from rich.console import Console
 from rich.traceback import install
 
-from core.model import LLMClient
+from core.model import LLMClient, load_hf_model_and_processor
 from core.history_manager import HistoryManager
 from core.executor import Executor
 from agents.session_agent import SessionAgent
@@ -28,6 +28,11 @@ def parse_args():
         description="Launch the HPC Tutor with a chosen model size"
     )
     p.add_argument(
+        "--model-id",
+        default="google/gemma-3-27b-it",
+        help="Hugging Face model ID to use for the session."
+    )
+    p.add_argument(
         "--model-size",
         choices=["1b", "27b"],
         default="27b",
@@ -39,20 +44,25 @@ def parse_args():
 def main():
     args = parse_args()
 
-    model_id = f"google/gemma-3-{args.model_size}-it"
-    console.print(f"[bold green]Using model:[/bold green] {model_id}")
+    #model_id = f"google/gemma-3-{args.model_size}-it"
+    #console.print(f"[bold green]Using model:[/bold green] {model_id}")
 
-    hf_model = Gemma3ForConditionalGeneration.from_pretrained(
-        model_id,
-        attn_implementation="eager",
-        device_map="auto",
-        torch_dtype=torch.bfloat16
-    ).eval()
+    #hf_model = Gemma3ForConditionalGeneration.from_pretrained(
+    #    model_id,
+    #    attn_implementation="eager",
+    #    device_map="auto",
+    #    torch_dtype=torch.bfloat16
+    #).eval()
 
-    try:
-        processor = AutoProcessor.from_pretrained(model_id)
-    except OSError:
-        processor = AutoTokenizer.from_pretrained(model_id)
+    #try:
+    #    processor = AutoProcessor.from_pretrained(model_id)
+    #except OSError:
+    #    processor = AutoTokenizer.from_pretrained(model_id)
+
+    if args.model_size and args.model_id == "google/gemma-3-27b-it":
+        args.model_id = f"google/gemma-3-{args.model_size}-it"
+
+    hf_model, processor = load_hf_model_and_processor(args.model_id)
 
     session_llm = LLMClient(
         hf_model=hf_model,

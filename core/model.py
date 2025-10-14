@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from typing import Any, Dict, Tuple
+from typing import Any, Dict, List, Tuple
 
 import torch
 from rich.console import Console
@@ -74,6 +74,13 @@ def load_hf_model_and_processor(
     return hf_model, processor
 
 
+def _as_string_messages(system_prompt: str, user_prompt: str) -> List[Dict[str, str]]:
+    return [
+        {"role": "system", "content": system_prompt},
+        {"role": "user", "content": user_prompt},
+    ]
+
+
 @dataclass
 class LLMClient:
     hf_model: Any
@@ -81,23 +88,32 @@ class LLMClient:
     system_prompt: str
     max_new_tokens: int
 
-    def _build_inputs(self, user_prompt: str) -> Dict[str, torch.Tensor]:
+    def _build_inputs(self, user_prompt: str) -> Any:
         """
         Create model-ready inputs from (system, user) messages.
         """
-        messages = [
+        rich_messages = [
             {"role": "system", "content": [{"type": "text", "text": self.system_prompt}]},
-            {"role": "user", "content": [{"type": "text", "text": user_prompt}]},
+            {"role": "user",   "content": [{"type": "text", "text": user_prompt}]},
         ]
 
-        if hasattr(self.processor, "apply_chat_template"):
-            raw = self.processor.apply_chat_template(
-                messages,
+        simple_messages = _as_string_messages(self.system_prompt, user_prompt)
+
+        def _to_model_inputs(msgs):
+            return self.processor.apply_chat_template(
+                msgs,
                 add_generation_prompt=True,
                 tokenize=True,
                 return_dict=True,
                 return_tensors="pt",
             )
+
+        raw = None
+        if hasattr(self.processor, "apply_chat_template"):
+            try:
+                raw = _to_model_inputs(rich_messages)
+            except Exception:
+                raw = _to_model_inputs(simple_messages)
         else:
             text = f"{self.system_prompt}\n\n{user_prompt}\n"
             raw = self.processor(

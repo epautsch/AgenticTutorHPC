@@ -135,7 +135,7 @@ class LLMClient:
         #    {"role": "user", "content": [{"type": "text", "text": user_prompt}]}
         #]
         # DEBUG print
-        console.print("[blue]▶️  LLMClient.generate() input:[/]\n", input)
+        #console.print("[blue]▶️  LLMClient.generate() input:[/]\n", input)
 
         with console.status("Generating response...", spinner="dots"):
             # tokenize & run
@@ -153,6 +153,9 @@ class LLMClient:
             #    if isinstance(v, torch.Tensor):
             #        raw[k] = v.to(self.model.device, dtype=torch.bfloat16)
             inputs = self._build_inputs(user_prompt)
+
+            # DEBUG print
+            console.print("[blue]▶️  LLMClient.generate() tokenized input:[/]\n", inputs)
 
             input_len = inputs["input_ids"].shape[-1]
             with torch.inference_mode():

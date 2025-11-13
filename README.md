@@ -35,5 +35,11 @@ python -m venv .venv && source .venv/bin/activate
 
 # install deps
 pip install --upgrade pip
-pip install -r requirements.txt  
+pip install -r requirements.txt
+
+# Need to link Hugging Face account and access token
+huggingface-cli login
+
+# verify link (should return user: USERNAME)
+hf auth whoami  
 

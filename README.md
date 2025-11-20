@@ -40,27 +40,4 @@ pip install -r requirements.txt
 # Need to link Hugging Face account and access token
 huggingface-cli login
 
-### 2) MCP Server + Local HPC Assistant (Gemma-2B-IT)
-
-This project includes an optional standalone **MCP (Model Context Protocol) server** and a **local Gemma-2B-IT agent** designed to interact with HPC clusters.  
-This assistant can:
-
-- List available nodes (Coming Soon) 
-- Determine the best GPU node  
-- Run commands (like `nvidia-smi`) on the best node  
-- Automatically interpret requests like “grab a compute node”  
-- Provide simple English explanations of tool results  
-
-This requires **no external APIs** — everything runs locally.
-
----
-
-## 🖥 Start the MCP Server
-
-From inside the repo:
-
-```bash
-cd mcp_server
-source venv/bin/activate
-python mcp_server.py
 

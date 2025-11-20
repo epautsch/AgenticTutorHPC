@@ -40,4 +40,5 @@ pip install -r requirements.txt
 # Need to link Hugging Face account and access token
 huggingface-cli login
 
-
+# run the MCP host
+python mcp_host.py

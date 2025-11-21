@@ -59,7 +59,15 @@ pip install -r requirements.txt
 # Need to link Hugging Face account and access token
 huggingface-cli login
 
+____________________________________________________________
+# cd into AgenticTutorHPC
+cd AgenticTutorHPC/
+
+# cd into mcp_server
+cd mcp_server/
+
 # run the MCP host
 python mcp_host.py
+
 
 

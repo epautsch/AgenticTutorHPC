@@ -43,13 +43,12 @@ huggingface-cli login
 # run the MCP host
 python mcp_host.py
 
-#How to grab a compute node using the MCP host:
+# How to grab a compute node using the MCP host:
+To instantly connect to the least-loaded GPU node, just type:
 
-#To instantly connect to the least-loaded GPU node, just type:
+          “grab me the best node available”
 
-“grab me the best node available”
-
-#The model will automatically:
-#  - Determine which GPU node is the least utilized.
-#  - SSH into that node on your behalf.
-#  - Drop you directly into an interactive shell so you can start working immediately.
+# The model will automatically:
+  - Determine which GPU node is the least utilized.
+  - SSH into that node on your behalf.
+  - Drop you directly into an interactive shell so you can start working immediately.

@@ -21,6 +21,27 @@ This repo implements the system described in the accompanying paper, centered on
 - [Acknowledgments](#acknowledgments)
 
 ---
+## 🚀 How to Grab a Compute Node Using the MCP Host
+
+Once the MCP host is running, you can instantly connect to the least-loaded GPU node by simply typing:
+
+> **“grab me the best node available”**
+
+That’s it — no Slurm job scripts, no guessing which node is free, and no manual SSH commands.
+
+---
+
+## 🧠 What Happens Behind the Scenes
+
+The MCP host will:
+
+- 🔍 **Identify the least-utilized GPU node** in real time  
+- 🔐 **SSH into that node automatically** on your behalf  
+- 💻 **Drop you straight into an interactive shell**, ready for work  
+
+No node hunting. No load checking. No shell commands.  
+Just one natural-language request → **instant compute node**.
+
 
 ## Quick start
 
@@ -43,12 +64,4 @@ huggingface-cli login
 # run the MCP host
 python mcp_host.py
 
-# How to grab a compute node using the MCP host:
-To instantly connect to the least-loaded GPU node, just type:
 
-          “grab me the best node available”
-
-# The model will automatically:
-  - Determine which GPU node is the least utilized.
-  - SSH into that node on your behalf.
-  - Drop you directly into an interactive shell so you can start working immediately.

@@ -21,26 +21,24 @@ This repo implements the system described in the accompanying paper, centered on
 - [Acknowledgments](#acknowledgments)
 
 ---
-## 🚀 How to Grab a Compute Node Using the MCP Host
+## How to Grab a Compute Node Using the MCP Host
 
 Once the MCP host is running, you can instantly connect to the least-loaded GPU node by simply typing:
 
 > **“grab me the best node available”**
 
-That’s it — no Slurm job scripts, no guessing which node is free, and no manual SSH commands.
+It takes no Slurm job scripts, no guessing which node is free, and no manual SSH commands.
 
 ---
 
-## 🧠 What Happens Behind the Scenes
+## What Happens Under the Hood
 
 The MCP host will:
 
-- 🔍 **Identify the least-utilized GPU node** in real time  
-- 🔐 **SSH into that node automatically** on your behalf  
-- 💻 **Drop you straight into an interactive shell**, ready for work  
+-  **Identify the least-utilized GPU node** in real time  
+-  **SSH into that node automatically** on your behalf  
+-  **Drop you straight into an interactive shell**, ready for work  
 
-No node hunting. No load checking. No shell commands.  
-Just one natural-language request → **instant compute node**.
 
 
 ## Quick start

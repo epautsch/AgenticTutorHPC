@@ -7,7 +7,7 @@ import time
 import os
 
 ########################################
-# DEBUG MODE (Option C — Toggle here)
+# DEBUG MODE 
 ########################################
 DEBUG = False
 

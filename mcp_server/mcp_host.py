@@ -76,11 +76,12 @@ Stay strictly within these rules.
 # LOAD GEMMA 2B-IT
 ########################################
 
+# try gemma3 179M vv
 print("Loading Gemma 2B IT...")
 tokenizer = AutoTokenizer.from_pretrained("google/gemma-2b-it")
 model = AutoModelForCausalLM.from_pretrained(
     "google/gemma-2b-it",
-    torch_dtype=torch.float32,
+    torch_dtype=torch.float32, # try lower (16, 4) (float)
     device_map="cpu"
 )
 

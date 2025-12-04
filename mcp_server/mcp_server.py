@@ -15,7 +15,7 @@ class RunRequest(BaseModel):
     workdir: str
 
 
-
+# change to quer (modular)
 GPU_NODES = ["gpu1", "gpu2"]
 
 ALL_NODES = [

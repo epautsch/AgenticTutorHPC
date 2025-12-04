@@ -25,7 +25,7 @@ ALL_NODES = [
     "node11", "node12", "node13", "node14", "node15"
 ]
 
-
+# core
 def ssh_run_cmd(hostname, command, username=None):
     """
     Runs a command on a remote node using SSH and returns stdout.
@@ -50,7 +50,7 @@ def ssh_run_cmd(hostname, command, username=None):
     except Exception as e:
         return None, str(e)
 
-
+# get gpu util
 def get_gpu_utilization(hostname):
     """
     SSH into a GPU node and collect GPU utilization and memory usage.
@@ -69,7 +69,7 @@ def get_gpu_utilization(hostname):
 
     return gpu_stats, None
 
-
+# compute score
 def compute_node_load(gpu_stats):
     """
     Given a list of (util, mem) tuples for each GPU, compute a single score.
@@ -89,6 +89,7 @@ def compute_node_load(gpu_stats):
 
 app = FastAPI()
 
+# end points
 @app.get("/health")
 def health_check():
     return {"status": "ok"}

@@ -7,7 +7,7 @@ import time
 import os
 
 ########################################
-# DEBUG MODE 
+# DEBUG MODE used to debug tool call issues
 ########################################
 DEBUG = False
 
@@ -24,7 +24,7 @@ server_proc = subprocess.Popen(
     stderr=subprocess.PIPE,
     cwd=os.path.dirname(os.path.abspath(__file__)),
 )
-
+#to allow the server to start up
 time.sleep(2)
 print("MCP Server started.")
 
@@ -89,6 +89,7 @@ model = AutoModelForCausalLM.from_pretrained(
 # GEMMA CHAT TEMPLATE (FIXED)
 ########################################
 
+# formats based on chat templates
 def format_chat(messages):
     """
     Converts a list of:
@@ -111,7 +112,7 @@ def format_chat(messages):
     text += "<start_of_turn>model\n"
     return text
 
-
+# builds the prompt for Gemma and sends it to the LLM
 def ask_gemma(user_input, is_observation=False):
     # Build combined message
     if not is_observation:
@@ -176,7 +177,7 @@ def ask_gemma(user_input, is_observation=False):
 ########################################
 # TOOL PARSING (ROBUST)
 ########################################
-
+# checks if it's a valid tool call and if its one of the allowed tools.
 def is_tool_call(text):
     cleaned = (
         text.replace("```json", "")
@@ -218,7 +219,7 @@ def is_tool_call(text):
 ########################################
 # TOOL EXECUTION
 ########################################
-
+# posts get requests to the mcp server end points
 def execute_tool(tool_name, args):
     if tool_name == "list_nodes":
         return requests.get(f"{MCP_SERVER}/list_nodes").json()
